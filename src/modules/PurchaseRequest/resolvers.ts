@@ -126,7 +126,7 @@ const purchaseRequestResolver = {
       try {
         // Retrieve all purchase requests
         const purchaseRequests = await PurchaseRequest.findAll({
-          where: { userId,status:"saved" },
+          where: { userId },
           include: [
             {
               model: Product,
@@ -140,6 +140,38 @@ const purchaseRequestResolver = {
       } catch (error) {
         console.error(error);
         throw new Error('Failed to retrieve purchase requests');
+      }
+    },
+   /* getDraftProductsByRequestId: async (_: any, { purchaseRequestId }: { purchaseRequestId: number }) => {
+      try {
+        const draft = await Product.findAll({
+          where:{purchaseRequestId:purchaseRequestId},
+         
+        });
+        return draft;
+      } catch (error) {
+        // Handle error
+        throw new Error('Failed to retrieve draft by ID');
+      }
+    },*/
+    getDraftProductsByRequestId: async (_: any, { purchaseRequestId }: { purchaseRequestId: number }) => {
+
+      try {
+        // Retrieve all purchase requests
+        const purchaseRequests = await PurchaseRequest.findAll({
+          include: [
+            {
+              model: Product,
+              as: 'products',
+            },
+          ],
+          order: [['id', 'DESC']],
+        });
+        // Return the purchase requests
+        return purchaseRequests;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to retrieve draft by ID');
       }
     },
     purchaseRequestById: async (_: any, { id }: { id: number }) => {
@@ -410,7 +442,7 @@ const purchaseRequestResolver = {
         console.log(products);
         console.log("products");
         console.log(purchaseRequestId);
-         await Draft.bulkCreate(
+         await Product.bulkCreate(
              products?.map((product) => ({
                ...product,
                purchaseRequestId,

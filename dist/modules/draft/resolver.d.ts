@@ -4,9 +4,6 @@ declare const draftResolver: {
         getDraftById: (_: any, { id }: {
             id: number;
         }) => Promise<Draft | null>;
-        getDraftProductsByRequestId: (_: any, { purchaseRequestId }: {
-            purchaseRequestId: number;
-        }) => Promise<Draft[]>;
         getAllDrafts: () => Promise<Draft[]>;
     };
     Mutation: {

@@ -7,6 +7,8 @@ scalar Date
     id: Int!
     productId: Int!
     price: Float!
+    remark:String
+    sentBy:String
     quotationId: Int!
     status: String!
     createdAt: Date!

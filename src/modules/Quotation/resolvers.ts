@@ -74,10 +74,10 @@ const quotationResolver = {
         throw new Error('Failed to retrieve order');
       }
     },
-    quotationBydSupplierId: async (_:any, { suplierId,status }: { suplierId: number,status:string }) => {
+    quotationBydSupplierId: async (_:any, { suplierId }: { suplierId: number }) => {
       try {
         const quotation = await Quotation.findAll({
-          where:{supplierId:suplierId,status},
+          where:{supplierId:suplierId},
             include: [
               { model: Supplier, as: 'supplier' },
               { model: User, as: 'customer' },
@@ -136,7 +136,7 @@ const quotationResolver = {
       }
     },*/
     updateQuotation: async (_: any, { id, input }: { id: number; input: UpdateQuotationInput }) => {
-      const { status,availabilityDate,otherPayment,shippingPrice, productPrices } = input;
+      const { status,remark,sentBy,availabilityDate,shippingPrice, productPrices } = input;
       
       // Fetch the quotation record from the database using the provided ID
       const quotation = await Quotation.findByPk(id);
@@ -147,15 +147,22 @@ const quotationResolver = {
     
       // Update the quotation record with the provided data
       if (status) {
-        quotation.status = "quoted";
-      }
-
-      
+        quotation.status = status;
+      }  
       if (shippingPrice) {
-        quotation.shippingPrice = shippingPrice;
-        quotation.otherPayment = otherPayment;
+        quotation.shippingPrice = shippingPrice; 
+      }
+      if(availabilityDate){
         quotation.availabilityDate = availabilityDate;
       }
+      if(remark){
+        quotation.remark =remark;
+      }
+      if(sentBy){
+        quotation.sentBy = sentBy;
+      }
+      console.log("samisams")
+      console.log(status)
       await Notification.create({
         type: 'rfq',
         message: 'RFQ received. Price details enclosed. Thank you.',

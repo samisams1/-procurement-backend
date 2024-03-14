@@ -23,9 +23,8 @@ declare const quotationResolver: {
         countQuotationBySupplierId: (parent: any, { data }: {
             data: countQuotation;
         }) => Promise<number>;
-        quotationBydSupplierId: (_: any, { suplierId, status }: {
+        quotationBydSupplierId: (_: any, { suplierId }: {
             suplierId: number;
-            status: string;
         }) => Promise<Quotation[]>;
     };
     Mutation: {

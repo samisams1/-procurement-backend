@@ -42,6 +42,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      sentBy: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      remark: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       
       purchaseRequestId: {
         type: Sequelize.INTEGER,

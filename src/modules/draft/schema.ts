@@ -25,7 +25,6 @@ type DraftRequest {
   type Query {
     getDraftById(id: ID!): Draft
     getAllDrafts: [Draft]
-    getDraftProductsByRequestId(purchaseRequestId: Int!):[DraftRequest]
   }
   type Mutation {
     createDraft(input: DraftInput!): Draft

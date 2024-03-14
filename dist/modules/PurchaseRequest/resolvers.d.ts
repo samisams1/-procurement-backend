@@ -49,6 +49,9 @@ declare const purchaseRequestResolver: {
         savedRequestByUserId: (_: any, { userId }: {
             userId: number;
         }) => Promise<PurchaseRequest[]>;
+        getDraftProductsByRequestId: (_: any, { purchaseRequestId }: {
+            purchaseRequestId: number;
+        }) => Promise<PurchaseRequest[]>;
         purchaseRequestById: (_: any, { id }: {
             id: number;
         }) => Promise<PurchaseRequest[]>;

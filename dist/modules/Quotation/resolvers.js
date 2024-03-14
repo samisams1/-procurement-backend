@@ -60,10 +60,10 @@ const quotationResolver = {
                 throw new Error('Failed to retrieve order');
             }
         },
-        quotationBydSupplierId: async (_, { suplierId, status }) => {
+        quotationBydSupplierId: async (_, { suplierId }) => {
             try {
                 const quotation = await model_3.default.findAll({
-                    where: { supplierId: suplierId, status },
+                    where: { supplierId: suplierId },
                     include: [
                         { model: model_2.default, as: 'supplier' },
                         { model: model_1.default, as: 'customer' },
@@ -122,7 +122,7 @@ const quotationResolver = {
            }
          },*/
         updateQuotation: async (_, { id, input }) => {
-            const { status, availabilityDate, otherPayment, shippingPrice, productPrices } = input;
+            const { status, remark, sentBy, availabilityDate, shippingPrice, productPrices } = input;
             // Fetch the quotation record from the database using the provided ID
             const quotation = await model_3.default.findByPk(id);
             if (!quotation) {
@@ -130,13 +130,22 @@ const quotationResolver = {
             }
             // Update the quotation record with the provided data
             if (status) {
-                quotation.status = "quoted";
+                quotation.status = status;
             }
             if (shippingPrice) {
                 quotation.shippingPrice = shippingPrice;
-                quotation.otherPayment = otherPayment;
+            }
+            if (availabilityDate) {
                 quotation.availabilityDate = availabilityDate;
             }
+            if (remark) {
+                quotation.remark = remark;
+            }
+            if (sentBy) {
+                quotation.sentBy = sentBy;
+            }
+            console.log("samisams");
+            console.log(status);
             await model_7.default.create({
                 type: 'rfq',
                 message: 'RFQ received. Price details enclosed. Thank you.',

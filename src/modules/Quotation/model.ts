@@ -10,9 +10,10 @@ class Quotation extends Model {
   public customerId?: number;
   public shippingPrice?: number;
   public availabilityDate?:number;
-  public otherPayment?:number;
   public createdAt!: Date;
   public status!: string;
+  public sentBy?: string;
+  public remark?: string;
   public purchaseRequestId?: number;
   public readonly supplier?: Supplier;
   public readonly customer?: User;
@@ -40,10 +41,6 @@ Quotation.init(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
-    otherPayment: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
     availabilityDate: {
       type: DataTypes.FLOAT,
       allowNull: true,
@@ -55,6 +52,14 @@ Quotation.init(
     status: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    sentBy: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    remark: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     purchaseRequestId: {
       type: DataTypes.INTEGER,

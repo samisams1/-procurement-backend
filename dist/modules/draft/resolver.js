@@ -16,24 +16,23 @@ const draftResolver = {
                 throw new Error('Failed to retrieve draft by ID');
             }
         },
-        getDraftProductsByRequestId: async (_, { purchaseRequestId }) => {
-            try {
-                const draft = await model_1.default.findAll({
-                    where: { purchaseRequestId: purchaseRequestId },
-                    /* include: [
-                       {
-                         model: Draft,
-                         as: 'drafts',
-                       },
-                     ]*/
-                });
-                return draft;
-            }
-            catch (error) {
-                // Handle error
-                throw new Error('Failed to retrieve draft by ID');
-            }
-        },
+        /* getDraftProductsByRequestId: async (_: any, { purchaseRequestId }: { purchaseRequestId: number }) => {
+           try {
+             const draft = await Draft.findAll({
+               where:{purchaseRequestId:purchaseRequestId},
+               include: [
+                 {
+                   model: Draft,
+                   as: 'drafts',
+                 },
+               ]
+             });
+             return draft;
+           } catch (error) {
+             // Handle error
+             throw new Error('Failed to retrieve draft by ID');
+           }
+         },*/
         getAllDrafts: async () => {
             try {
                 const drafts = await model_1.default.findAll();

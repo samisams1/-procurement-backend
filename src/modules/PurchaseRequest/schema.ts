@@ -90,6 +90,8 @@ type Product {
     countPurchaseRequestBystatus(data: countPurchase!): Int!
     countAllRequestByStatus(status:String!): Int!
     savedRequestByUserId(userId: Int!):  [PurchaseRequest]
+
+    getDraftProductsByRequestId(purchaseRequestId: Int!):[PurchaseRequest]
     
   }
   input FilterInput {

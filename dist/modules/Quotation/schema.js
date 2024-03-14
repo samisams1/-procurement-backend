@@ -9,7 +9,8 @@ scalar Date
     customerId: ID
     shippingPrice: Float
     availabilityDate:Int
-    otherPayment:Float
+    remark:String
+    sentBy:String
     createdAt: Date!
     status: String!
     purchaseRequestId: ID
@@ -40,7 +41,7 @@ scalar Date
     getQuotation(id: Int!): Quotation
     countGetQuotationByStatus(data: countQuotation!): Int!
     countQuotationBySupplierId(data: countQuotationSupplier!): Int!
-    quotationBydSupplierId(suplierId: Int!,status:String!): [Quotation]
+    quotationBydSupplierId(suplierId: Int!): [Quotation]
   }
 input countQuotation  {
   customerId:Int!
@@ -57,11 +58,10 @@ input countQuotation  {
     status: String
     shippingPrice: Float
     availabilityDate :Int
-    otherPayment: Float
+    sentBy:String
+    remark:String
     productPrices: [ProductPriceInput!]
   }
-
-  
   type Mutation {
     createQuotation(input: CreateQuotationInput): Quotation
     updateQuotation(id:Int!,input: UpdateQuotationInput!): Quotation

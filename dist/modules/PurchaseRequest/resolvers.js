@@ -15,7 +15,6 @@ const mailerService_1 = require("../mailer/mailerService");
 const sequelize_1 = require("sequelize");
 const model_7 = __importDefault(require("../Category/model"));
 const model_8 = __importDefault(require("../user/model"));
-const model_9 = __importDefault(require("../draft/model"));
 const { PubSub } = require('graphql-subscriptions');
 const pubsub = new PubSub();
 const mailerService = new mailerService_1.MailerService();
@@ -78,7 +77,7 @@ const purchaseRequestResolver = {
             try {
                 // Retrieve all purchase requests
                 const purchaseRequests = await model_4.default.findAll({
-                    where: { userId, status: "saved" },
+                    where: { userId },
                     include: [
                         {
                             model: model_3.default,
@@ -93,6 +92,38 @@ const purchaseRequestResolver = {
             catch (error) {
                 console.error(error);
                 throw new Error('Failed to retrieve purchase requests');
+            }
+        },
+        /* getDraftProductsByRequestId: async (_: any, { purchaseRequestId }: { purchaseRequestId: number }) => {
+           try {
+             const draft = await Product.findAll({
+               where:{purchaseRequestId:purchaseRequestId},
+              
+             });
+             return draft;
+           } catch (error) {
+             // Handle error
+             throw new Error('Failed to retrieve draft by ID');
+           }
+         },*/
+        getDraftProductsByRequestId: async (_, { purchaseRequestId }) => {
+            try {
+                // Retrieve all purchase requests
+                const purchaseRequests = await model_4.default.findAll({
+                    include: [
+                        {
+                            model: model_3.default,
+                            as: 'products',
+                        },
+                    ],
+                    order: [['id', 'DESC']],
+                });
+                // Return the purchase requests
+                return purchaseRequests;
+            }
+            catch (error) {
+                console.error(error);
+                throw new Error('Failed to retrieve draft by ID');
             }
         },
         purchaseRequestById: async (_, { id }) => {
@@ -321,7 +352,7 @@ const purchaseRequestResolver = {
                 console.log(products);
                 console.log("products");
                 console.log(purchaseRequestId);
-                await model_9.default.bulkCreate((products === null || products === void 0 ? void 0 : products.map((product) => ({
+                await model_3.default.bulkCreate((products === null || products === void 0 ? void 0 : products.map((product) => ({
                     ...product,
                     purchaseRequestId,
                     //   quotationId: quotation.id,

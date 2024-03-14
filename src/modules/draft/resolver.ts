@@ -11,23 +11,23 @@ const draftResolver = {
         throw new Error('Failed to retrieve draft by ID');
       }
     },
-    getDraftProductsByRequestId: async (_: any, { purchaseRequestId }: { purchaseRequestId: number }) => {
+   /* getDraftProductsByRequestId: async (_: any, { purchaseRequestId }: { purchaseRequestId: number }) => {
       try {
         const draft = await Draft.findAll({
           where:{purchaseRequestId:purchaseRequestId},
-         /* include: [
+          include: [
             {
               model: Draft,
               as: 'drafts',
             },
-          ]*/
+          ]
         });
         return draft;
       } catch (error) {
         // Handle error
         throw new Error('Failed to retrieve draft by ID');
       }
-    },
+    },*/
     getAllDrafts: async () => {
       try {
         const drafts = await Draft.findAll();

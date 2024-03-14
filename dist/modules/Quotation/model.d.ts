@@ -9,9 +9,10 @@ declare class Quotation extends Model {
     customerId?: number;
     shippingPrice?: number;
     availabilityDate?: number;
-    otherPayment?: number;
     createdAt: Date;
     status: string;
+    sentBy?: string;
+    remark?: string;
     purchaseRequestId?: number;
     readonly supplier?: Supplier;
     readonly customer?: User;

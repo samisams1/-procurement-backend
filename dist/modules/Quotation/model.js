@@ -28,10 +28,6 @@ Quotation.init({
         type: sequelize_1.DataTypes.FLOAT,
         allowNull: true,
     },
-    otherPayment: {
-        type: sequelize_1.DataTypes.FLOAT,
-        allowNull: true,
-    },
     availabilityDate: {
         type: sequelize_1.DataTypes.FLOAT,
         allowNull: true,
@@ -43,6 +39,14 @@ Quotation.init({
     status: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
+    },
+    sentBy: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
+    remark: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
     },
     purchaseRequestId: {
         type: sequelize_1.DataTypes.INTEGER,
